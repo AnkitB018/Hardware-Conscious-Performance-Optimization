@@ -8,8 +8,8 @@ void conv_tile(const float *in, float *out, const float *ker,
 {
     const int p = K / 2;
     const int in_stride = W + 2 * p;
-    int TW = 64; 
-    int TH = 64; 
+    int TW = 16; 
+    int TH = 16; 
     
     for (int ty = 0; ty < H; ty += TH)
     {
@@ -20,7 +20,7 @@ void conv_tile(const float *in, float *out, const float *ker,
 
             for (int oy = ty; oy < ty_end; oy++)
             {
-                for (int ox = tx; ox + 8 <= tx_end; ox += 8)
+                for (int ox = tx; ox< tx_end; ox ++)
                 {
                     float acc=0.0f;
                     

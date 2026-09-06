@@ -10,7 +10,7 @@ void matmul_prefetch(const float* A, const float* B, float* C,
                      int M, int N, int K, int lda, int ldb, int ldc) {
     
     const int BLOCK = 64;
-    const int PREFETCH_DIS = 64;
+    const int PREFETCH_DIS = 128;
 
     for(int ii=0; ii<M ; ii+=BLOCK){
         int i_end = ii+BLOCK<M?ii+BLOCK:M;
@@ -44,14 +44,14 @@ void matmul_prefetch(const float* A, const float* B, float* C,
                                     reinterpret_cast<const char*>(
                                         a+p+PREFETCH_DIS
                                     ),
-                                    _MM_HINT_T0
+                                    _MM_HINT_T2
                                 );
 
                                 _mm_prefetch(
                                     reinterpret_cast<const char*>(
                                         b+p+PREFETCH_DIS
                                     ),
-                                    _MM_HINT_T0
+                                    _MM_HINT_T2
                                 );
                             }
 

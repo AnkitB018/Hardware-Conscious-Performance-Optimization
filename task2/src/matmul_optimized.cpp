@@ -37,11 +37,11 @@ void matmul_optimized(const float* A, const float* B, float* C,
 
                     int p = 0;
                     for (; p + 15 < K; p += 16) {
-                        _mm_prefetch((const char*)(a+p+DISTANCE), _MM_HINT_T0);
-                        _mm_prefetch((const char*)(b1+p+DISTANCE), _MM_HINT_T0);
-                        _mm_prefetch((const char*)(b2+p+DISTANCE), _MM_HINT_T0);
-                        _mm_prefetch((const char*)(b3+p+DISTANCE), _MM_HINT_T0);
-                        _mm_prefetch((const char*)(b4+p+DISTANCE), _MM_HINT_T0);
+                        _mm_prefetch((const char*)(a+p+DISTANCE), _MM_HINT_NTA);
+                        _mm_prefetch((const char*)(b1+p+DISTANCE), _MM_HINT_NTA);
+                        _mm_prefetch((const char*)(b2+p+DISTANCE), _MM_HINT_NTA);
+                        _mm_prefetch((const char*)(b3+p+DISTANCE), _MM_HINT_NTA);
+                        _mm_prefetch((const char*)(b4+p+DISTANCE), _MM_HINT_NTA);
 
                         __m256 va_lo = _mm256_loadu_ps(a+p);
                         __m256 va_hi = _mm256_loadu_ps(a+p+8);
@@ -82,8 +82,8 @@ void matmul_optimized(const float* A, const float* B, float* C,
                     __m256 va = _mm256_setzero_ps();
                     int p = 0;
                     for (; p+7 < K; p += 8) {
-                        _mm_prefetch((const char*)(a+p+DISTANCE), _MM_HINT_T0);
-                        _mm_prefetch((const char*)(b+p+DISTANCE), _MM_HINT_T0);
+                        _mm_prefetch((const char*)(a+p+DISTANCE), _MM_HINT_NTA);
+                        _mm_prefetch((const char*)(b+p+DISTANCE), _MM_HINT_NTA);
                         va = _mm256_fmadd_ps(_mm256_loadu_ps(a+p), _mm256_loadu_ps(b+p), va);
                     }
                     float t[8]; _mm256_storeu_ps(t, va);

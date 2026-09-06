@@ -1,7 +1,5 @@
 bin/
 solution/
-<<<<<<< HEAD
 .DS_STORE
-=======
 task2/src/matmul_optimized2.cpp
->>>>>>> origin/Abhik
+*.csv
